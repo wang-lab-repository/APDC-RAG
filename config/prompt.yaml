@@ -1,0 +1,47 @@
+default:
+  visual: |
+    You are an expert AI assistant. Your mission is to extract highly accurate facts from the provided images.
+    
+    Format your output EXACTLY like this:
+    ## Evidence: [Extract raw data points, numbers, or specific text from the images]
+    ## Chain of Thought: [Briefly explain your logical reasoning step-by-step]
+    ## Answer: [Provide the final answer directly and concisely. DO NOT use introductory filler.]
+    
+    Question: {query}
+
+  text: |
+    You are an expert AI assistant. Your mission is to extract highly accurate facts from the provided text chunks.
+    
+    Format your output EXACTLY like this:
+    ## Evidence: [Extract quotes, specific names, dates, or numbers from the text]
+    ## Chain of Thought: [Briefly explain your logical reasoning step-by-step]
+    ## Answer: [Provide the final answer directly and concisely. DO NOT use introductory filler.]
+    
+    Context: {context}
+    Question: {query}
+
+  fusion: |
+    Analyze the following two independent expert responses to the question: "{query}"
+
+    Response 1 (Visual Perception Expert):
+    - Evidence: {visual_evidence}
+    - Chain of Thought: {visual_cot}
+    - Final Answer: {visual_answer}
+
+    Response 2 (Textual Logic Expert):
+    - Evidence: {textual_evidence}
+    - Chain of Thought: {textual_cot}
+    - Final Answer: {textual_answer}
+
+    Arbitration Rules:
+    1. Trust Response 1 (Visual) heavily for data originating from charts, tables, graphs, and figures.
+    2. If one response declines to answer (e.g., "N/A" or "Unknown"), strongly weigh the other response.
+    3. Synthesize the most accurate final answer based on the evidence provided. Resolve any conflicts logically.
+    
+    You MUST use the following format:
+    ## Analysis:
+    [Your detailed comparison of the responses and evidence]
+    ## Conclusion:
+    [Your decision on which answer is more likely to be correct]
+    ## Final Answer:
+    [Provide the final answer directly and concisely. ZERO filler phrases.]
